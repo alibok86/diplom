@@ -618,3 +618,9 @@ git tag v1.0.0
 git push origin v1.0.0
 
 ![12](https://github.com/alibok86/diplom/blob/main/12.png?raw=true)
+
+
+
+Ссылки а Докерхаб и Графана
+https://hub.docker.com/repository/docker/alibok/test-nginx-app/general
+http://158.160.170.10/login - пароль будет отправлен в коментарии
