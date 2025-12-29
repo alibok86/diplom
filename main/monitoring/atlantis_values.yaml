@@ -1,0 +1,15 @@
+github:
+  user: alibok86
+  # Не указывайте token и secret здесь, если используете Secret
+  token: ""
+  secret: ""
+  
+# Ключевое изменение: используйте vcsSecretName
+vcsSecretName: atlantis-webhook
+
+orgAllowlist: "github.com/alibok86/*"
+service:
+  type: NodePort
+  port: 4141
+ingress:
+  enabled: false

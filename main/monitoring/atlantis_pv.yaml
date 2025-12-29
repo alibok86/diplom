@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: atlantis-pv
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: "" # Оставляем пустым для вашего PVC
+  hostPath:
+    path: /var/lib/atlantis-data # НОВЫЙ ПУТЬ
+    type: DirectoryOrCreate
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: atlantis-permission-fix
+spec:
+  selector:
+    matchLabels:
+      name: atlantis-permission-fix
+  template:
+    metadata:
+      labels:
+        name: atlantis-permission-fix
+    spec:
+      containers:
+      - name: fix
+        image: busybox
+        command: ["sh", "-c", "mkdir -p /var/lib/atlantis-data && chown -R 1000:1000 /var/lib/atlantis-data && chmod -R 775 /var/lib/atlantis-data && sleep infinity"]
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: host-var-lib
+          mountPath: /var/lib
+      volumes:
+      - name: host-var-lib
+        hostPath:
+          path: /var/lib

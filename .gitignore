@@ -1,0 +1,32 @@
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+*.tfvars
+*.tfvars.json
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ansible
+*.retry
+*.vault
+ansible.log
+inventory/
+group_vars/*
+host_vars/*
+
+# Docker
+docker-compose.override.yml
+.docker/
+*.local
+
+# Kubernetes
+*.log
+tmp/
+charts/
+*.tgz
+.kube/
+kubeconfig

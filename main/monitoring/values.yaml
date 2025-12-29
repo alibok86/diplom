@@ -1,0 +1,29 @@
+replicaCount: 1
+vcsSecretName: "atlantis-vcs"
+github:
+  user: "alibok86"
+  #token: "atlantis-vcs"                # Если хотите использовать секрет, оставьте пустым
+  #secret: "atlantis-vcs"  # Имя Kubernetes секрета, который содержит ключ token
+
+
+orgAllowlist: "github.com/alibok86/*"
+ingress:
+  enabled: false
+
+statefulSet:
+  securityContext:
+    fsGroup: 1000
+
+# Этот блок часто разрешен в корне чарта
+initContainers:
+  - name: fix-permissions
+    image: busybox
+    command: ["sh", "-c", "chown -R 1000:1000 /atlantis-data"]
+    securityContext:
+      runAsUser: 0 # Выполняем как root для смены прав
+    volumeMounts:
+      - name: atlantis-data
+        mountPath: /atlantis-data
+
+containerSecurityContext:
+  runAsUser: 1000
