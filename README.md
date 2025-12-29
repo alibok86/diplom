@@ -405,15 +405,10 @@ ansible-playbook -i /home/ubuntu/kubespray/inventory/mycluster/hosts.yaml \
 ```
 
 Kubespray автоматически установил:
-Kubernetes control plane и kubelet
-Etcd кластер
-Сетевой плагин Calico
-CoreDNS
-Helm и системные утилиты
 
 Копируем из мастер ноды admin.config
 ```python
-ssh -i ~/.ssh/id_ed25519 ubuntu@51.250.67.43 "sudo cat /etc/kubernetes/admin.conf" > ~/.kube/config
+ssh -i ~/.ssh/id_ed25519 ubuntu@158.160.119.226 "sudo cat /etc/kubernetes/admin.conf" > ~/.kube/config
 kubectl cluster-info
 kubectl get nodes
 kubectl get pods -A
@@ -603,6 +598,11 @@ helm install atlantis runatlantis/atlantis -f values.yaml --disable-openapi-vali
 
 http://62.84.124.167:32313/ Атлатис установлен 
 
+Создаем отдельную ветку и пушим репозиторий
+git checkout -b feature/test-atlantis
+git add .
+git commit -m "Add atlantis config"
+git push origin feature/test-atlantis
 
 Для реализации CI/CD с использованием GitHub Actions добавил Settings > Secrets and variables > Actions 
 добавил 
