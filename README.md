@@ -459,10 +459,6 @@ http {
 }
 ```
 
-```python
-docker build -t test-nginx-app .
-docker run -p 8080:80 test-nginx-app
-```
 Вход в DockerHub:
 
 ```python
@@ -579,6 +575,8 @@ kubectl apply -f nginx_svc.yaml -f nginx_depl.yaml -f ingress.yaml
 Узнаем админ пароль для Grafana
 kubectl get secret -n monitoring kube-prometheus-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 ```
+![8](https://github.com/alibok86/diplom/blob/main/7.png?raw=true)
+
 
 #### Установка Атлантис
 ```python
@@ -597,14 +595,20 @@ helm install atlantis runatlantis/atlantis -f values.yaml --disable-openapi-vali
 ``` 
 
 http://62.84.124.167:32313/ Атлатис установлен 
+![9](https://github.com/alibok86/diplom/blob/main/9.png?raw=true)
 
 Создаем отдельную ветку и пушим репозиторий
+
+```python
 git checkout -b feature/test-atlantis
 git add .
 git commit -m "Add atlantis config"
 git push origin feature/test-atlantis
+```
+![10](https://github.com/alibok86/diplom/blob/main/10.png?raw=true)
+![11](https://github.com/alibok86/diplom/blob/main/11.png?raw=true)
 
-Для реализации CI/CD с использованием GitHub Actions добавил Settings > Secrets and variables > Actions 
+#### Для реализации CI/CD с использованием GitHub Actions добавил Settings > Secrets and variables > Actions 
 добавил 
   DOCKER_PASSWORD 
   DOCKER_USERNAME 
@@ -612,3 +616,5 @@ git push origin feature/test-atlantis
 
 git tag v1.0.0
 git push origin v1.0.0
+
+![12](https://github.com/alibok86/diplom/blob/main/12.png?raw=true)
